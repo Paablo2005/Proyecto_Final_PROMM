@@ -91,7 +91,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 icon: Icons.email,
                 inputController: emailController,
                 placeholderText: 'Ingresa tu correo electrónico',
-                inputType: TextInputType.text),
+                inputType: TextInputType.emailAddress),
             // Campo de texto para ingresar la contraseña
             CustomTextField(
               icon: Icons.lock,

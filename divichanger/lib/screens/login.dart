@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'screens.dart';
 import 'package:flutter/material.dart';
 
@@ -29,26 +31,23 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _loginUser() async {
-    // Activa el indicador de carga
     setState(() {
       _isLoading = true;
     });
 
-    // Llama al método para iniciar sesión y almacena el resultado
     String result = await AuthService().loginUser(
-      // Correo ingresado por el usuario
-      email: _emailController.text,
-      // Contraseña ingresada por el usuario
-      password: _passwordController.text,
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
     );
 
-    if (result == "éxito") {
-      // Desactiva el indicador de carga
+    // Verifica si hay un usuario autenticado
+    var user = FirebaseAuth.instance.currentUser;
+    if (result == "éxito" && user != null) {
       setState(() {
         _isLoading = false;
       });
 
-      // Navega a la pantalla principal si el inicio de sesión es exitoso
+      // Navegar solo si hay un usuario autenticado
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -56,14 +55,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     } else {
-      // Desactiva el indicador de carga en caso de error
       setState(() {
         _isLoading = false;
       });
 
-      // Muestra un mensaje de error utilizando un snack bar personalizado
-      // ignore: use_build_context_synchronously
-      showCustomSnackBar(context, result);
+      // Muestra un mensaje de error
+      showCustomSnackBar(
+          // ignore: use_build_context_synchronously
+          context,
+          "Error de autenticación. Verifica tus credenciales.");
     }
   }
 
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 icon: Icons.person,
                 inputController: _emailController,
                 placeholderText: 'Ingresa tu correo electrónico',
-                inputType: TextInputType.text,
+                inputType: TextInputType.emailAddress,
               ),
               CustomTextField(
                 icon: Icons.lock,
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff112D4E)),
+                      backgroundColor: const Color(0xff246382)),
                   onPressed: () async {
                     // Inicia sesión con Google
                     await FirebaseAuthService().signInWithGoogle();

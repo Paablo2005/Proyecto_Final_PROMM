@@ -33,7 +33,7 @@ class CustomButton extends StatelessWidget {
                 Radius.circular(30),
               ),
             ),
-            color: Color(0xff3F72AF), // Color de fondo del botón.
+            color: Color(0xff259AC5), // Color de fondo del botón.
           ),
 
           // Texto que se muestra dentro del botón.

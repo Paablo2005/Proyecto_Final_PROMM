@@ -1,6 +1,6 @@
-import 'package:divichanger/Widget/snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:divichanger/screens/screens.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -32,7 +32,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
-              color: Color(0xff3F72AF),
+              color: Color(0xff259AC5),
             ),
           ),
         ),
@@ -85,13 +85,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Ingresa tu correo electrónico",
-                      hintText: "ej. abc@gmail.com",
                     ),
+                    keyboardType: TextInputType
+                        .emailAddress, // Teclado para correos electrónicos
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff259AC5)),
                     onPressed: () async {
                       // Enviar el enlace de restablecimiento de contraseña a la dirección de correo electrónico proporcionada.
                       await auth
